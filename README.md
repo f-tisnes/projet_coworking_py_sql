@@ -1,4 +1,4 @@
-# Projet : Système de Gestion de Coworking - SQL et Python
+# Système de Gestion de Coworking - SQL, Python & Flask
 
 ## Auteur
 **TISNES Francesca** - Mars 2026
@@ -6,43 +6,71 @@
 ---
 
 ## Présentation du Projet
-Ce projet consiste en la mise en place d'un système de gestion de données pour un espace de travail partagé (coworking). L'objectif principal est de démontrer la transition d'un stockage de données plat, type tableur, vers une architecture de base de données relationnelle normalisée utilisant SQLite et Python.
+Ce projet propose une solution complète pour la gestion d'un espace de coworking. Il démontre la transition d'un stockage de données plat (type Excel) vers une **architecture relationnelle normalisée** sous SQLite, couplée à une **interface web dynamique** (Flask) pour la gestion administrative quotidienne.
 
-### Objectifs métier
-L'utilisation de fichiers Excel pour la gestion de réservations multiples présente des risques élevés d'incohérence et de redondance. Ce projet résout ces problématiques en isolant les entités (Entreprises, Membres, Réservations) pour garantir l'intégrité des informations.
-
----
-
-## Architecture des Données (Normalisation)
-Le système repose sur un schéma relationnel structuré en trois tables distinctes, évitant ainsi la répétition inutile de données.
-
-| Table | Fonction | Clé Primaire | Clé Étrangère |
-| :--- | :--- | :--- | :--- |
-| **entreprises** | Référentiel des entités clientes | `id` | - |
-| **membres** | Registre des utilisateurs (salariés) | `id` | `entreprise_id` |
-| **reservations** | Historique des flux et transactions | `id` | `membre_id` |
+### Pourquoi ce projet ?
+La gestion par tableur est limitée par la redondance des données et les risques d'incohérence. Cette solution garantit :
+- **L'intégrité des données** : Les membres sont strictement rattachés à des entreprises via des clés étrangères.
+- **L'automatisation** : Génération de rapports financiers instantanés via des jointures SQL complexes.
+- **L'accessibilité** : Une interface Web moderne permet aux utilisateurs non techniques (la direction) d'interagir avec la base de données.
 
 ---
 
-## Caractéristiques Techniques
-Le projet met en œuvre les technologies et méthodologies suivantes :
-* **Génération de données :** Utilisation de la bibliothèque `Faker` pour la création d'un jeu de données de test (100 réservations, 40 membres, 10 entreprises).
-* **Moteur de base de données :** Implémentation via SQLite pour une gestion locale et légère.
-* **Traitement de données :** Utilisation de requêtes SQL complexes incluant des jointures (`JOIN`) et des fonctions d'agrégation (`SUM`, `COUNT`).
-* **Analyse et Reporting :** Intégration de la bibliothèque `Pandas` pour le traitement des résultats et la génération de rapports financiers.
-* **Interopérabilité :** Exportation automatique des analyses au format CSV pour exploitation dans des logiciels tiers.
+## Architecture des Données
+Le système repose sur **4 tables** optimisées pour éviter toute redondance :
+
+| Table | Rôle | Clé Étrangère |
+| :--- | :--- | :--- |
+| **entreprises** | Référentiel des sociétés clientes (B2B) | - |
+| **membres** | Registre des utilisateurs individuels | `entreprise_id` |
+| **salles** | Catalogue des espaces (Open Space, Bureaux) et tarifs | - |
+| **reservations** | Historique des occupations et transactions | `membre_id`, `salle_id` |
 
 ---
 
-## Installation et Exécution
-1.  Ouvrir le dossier `projet_TISNES` dans l'environnement Visual Studio Code.
-2.  Activer l'environnement virtuel Python (`.venv`).
-3.  Exécuter l'intégralité du Notebook `gestion_coworking.ipynb` pour générer la base de données.
-4.  Le fichier de sortie `rapport_activite_TISNES.csv` sera automatiquement créé à la racine du dossier.
+## Installation et Démarrage
+
+### 1. Préparation de l'environnement
+1. Ouvrir le dossier `Projet_TISNES` dans **Visual Studio Code**.
+2. Activer l'environnement virtuel :
+   - Sur Mac/Linux : `source .venv/bin/activate`
+   - Sur Windows : `.venv\Scripts\activate`
+3. Installer les bibliothèques nécessaires :
+   pip install -r requirements.txt
+
+2. Initialisation et Simulation
+Exécutez l'intégralité du Notebook gestion_coworking.ipynb.
+
+    Résultat : Le script crée la structure SQL, génère 100 réservations fictives via Faker pour le test, et produit le fichier rapport_activite.csv.
 
 ---
 
-## Maintenance et Évolutivité
-Le code source inclut des procédures de maintenance démontrant la flexibilité du système :
-* **Modification structurelle :** Ajout de colonnes via la commande `ALTER TABLE` sans interruption de service.
-* **Mise à jour sélective :** Correction et mise à jour de données ciblées via la commande `UPDATE`.
+### Utilisation de l'Interface Web (Direction)
+Pour permettre au directeur d'ajouter manuellement des entreprises sans toucher au code, une interface Flask est disponible.
+
+1. Lancer le serveur :
+Dans le terminal VS Code, tapez :
+python app.py
+
+2. Accéder à l'interface :
+Ouvrez votre navigateur à l'adresse suivante : http://127.0.0.1:5000
+
+3. Ajouter une entreprise :
+    - Remplissez le formulaire moderne "Ajouter un Nouveau Client".
+    - Cliquez sur "Enregistrer en Base SQL".
+    - Vérification : L'entreprise est immédiatement ajoutée à coworking_base.db.
+
+---
+
+### Contenu du Dépôt (Livrables)
+
+    - app.py : Moteur de l'application Web Flask.
+    - templates/ : Interface HTML/CSS moderne pour la direction.- DESIGN.md : Documentation technique et diagramme entité-relation (ERD).
+    - schema.sql : Script SQL de création des tables et contraintes.
+    - queries.sql : Requêtes SQL de manipulation quotidienne (Insert, Update, Delete).
+    - analysis.sql : Requêtes SQL d'analyse financière (JOIN, SUM, GROUP BY).
+    - requirements.txt : Liste des dépendances Python.
+
+--- 
+
+Projet réalisé par Francesca TISNES - M1 APE - DS2E 

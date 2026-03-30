@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direction Coworking - TISNES</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Styles Globaux --- */
+        :root {
+            --primary-color: #3498db; /* Bleu moderne */
+            --secondary-color: #2c3e50; /* Gris foncé pro */
+            --success-color: #2ecc71; /* Vert succès */
+            --bg-color: #f8f9fa; /* Fond gris très clair */
+            --card-bg: #ffffff; /* Fond blanc pour les cartes */
+            --text-color: #333333;
+            --border-radius: 12px;
+            --shadow: 0 8px 30px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- Container Principal --- */
+        .container {
+            background-color: var(--card-bg);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 550px;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        /* --- Typography --- */
+        h1 {
+            color: var(--secondary-color);
+            text-align: center;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-weight: 300;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 25px;
+            font-size: 1.5em;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        /* --- Formulaire --- */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box; /* Crucial pour le padding */
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* --- Bouton --- */
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        /* --- Footer/Actions --- */
+        .actions {
+            margin-top: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 25px;
+        }
+
+        .btn-secondary {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* --- Badges/Info --- */
+        .data-source {
+            font-size: 0.85em;
+            color: #95a5a6;
+            margin-top: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Espace Direction</h1>
+        <p class="subtitle">TISNES Coworking Services</p>
+        
+        <h2>Ajouter un Nouveau Client</h2>
+        <form action="/ajouter" method="post">
+            <div class="form-group">
+                <label for="nom">Nom de l'entreprise</label>
+                <input type="text" id="nom" name="nom" placeholder="Ex: Google" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="secteur">Secteur d'activité</label>
+                <input type="text" id="secteur" name="secteur" placeholder="Ex: Technologie" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="ville">Ville du Siège Social</label>
+                <input type="text" id="ville" name="ville" placeholder="Ex: Paris" required>
+            </div>
+            
+            <button type="submit">Enregistrer en Base SQL</button>
+        </form>
+
+        <div class="actions">
+            <a href="/rapport" class="btn-secondary">
+                📄 Visualiser le dernier rapport d'activité (CSV)
+            </a>
+        </div>
+        
+        <p class="data-source">Livrable Final SQL/Python - Mars 2026</p>
+    </div>
+</body>
+</html>
