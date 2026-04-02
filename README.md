@@ -12,7 +12,7 @@ Ce projet propose une solution complète pour la gestion d'un espace de coworkin
 La gestion par tableur est limitée par la redondance des données et les risques d'incohérence. Cette solution garantit :
 - **L'intégrité des données** : Les membres sont strictement rattachés à des entreprises via des clés étrangères.
 - **L'automatisation** : Génération de rapports financiers instantanés via des jointures SQL complexes.
-- **L'accessibilité** : Une interface Web moderne permet aux utilisateurs non techniques (la direction) d'interagir avec la base de données.
+- **L'accessibilité et l'Ergonomie** : Une interface Web moderne (design SaaS) permet aux utilisateurs non techniques d'interagir avec la base de données en toute simplicité.
 
 ---
 
@@ -55,21 +55,23 @@ python app.py
 2. Accéder à l'interface :
 Ouvrez votre navigateur à l'adresse suivante : http://127.0.0.1:5000
 
-3. Ajouter une entreprise :
-    - Remplissez le formulaire moderne "Ajouter un Nouveau Client".
-    - Cliquez sur "Enregistrer en Base SQL".
-    - Vérification : L'entreprise est immédiatement ajoutée à coworking_base.db.
+3. Fonctionnalité de l'application Web :
+   - Interface Moderne : Design type SaaS, responsive, utilisant la typographie 'Inter' et des animations fluides.
+   - Sécurité SQL : Utilisation de requêtes paramétrées pour bloquer les injections SQL.
+   - Fiabilité : Gestion des erreurs (try/except) et utilisation de gestionnaires de contexte (with) pour protéger la base de données même en cas de crash.
+   - Feedback Utilisateur : Redirection vers une page de succès (success.html) avec validation visuelle.
 
 ---
 
 ### Contenu du Dépôt (Livrables)
 
-    - app.py : Moteur de l'application Web Flask.
-    - templates/ : Interface HTML/CSS moderne pour la direction.- DESIGN.md : Documentation technique et diagramme entité-relation (ERD).
-    - schema.sql : Script SQL de création des tables et contraintes.
-    - queries.sql : Requêtes SQL de manipulation quotidienne (Insert, Update, Delete).
-    - analysis.sql : Requêtes SQL d'analyse financière (JOIN, SUM, GROUP BY).
-    - requirements.txt : Liste des dépendances Python.
+- **app.py** : Moteur de l'application Web Flask.
+- **templates/** : Dossier contenant les interfaces HTML/CSS (index.html et success.html).
+- **DESIGN.md** : Documentation technique et diagramme entité-relation (ERD).
+- **schema.sql** : Script SQL de création des tables et contraintes.
+- **queries.sql** : Requêtes SQL de manipulation quotidienne (Insert, Update, Delete).
+- **analysis.sql** : Requêtes SQL d'analyse financière (JOIN, SUM, GROUP BY).
+- **requirements.txt** : Liste des dépendances Python.
 
 --- 
 

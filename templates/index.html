@@ -4,155 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Direction Coworking - TISNES</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #111827; /* Noir très élégant pour les boutons */
-            --primary-hover: #374151;
-            --bg-color: #F3F4F6; /* Gris très doux pour le fond */
-            --card-bg: #FFFFFF;
-            --text-main: #111827;
-            --text-muted: #6B7280;
-            --border-color: #D1D5DB;
-            --input-focus: #3B82F6; /* Liseré bleu au clic */
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: var(--text-main);
-        }
-
+        :root { --primary: #111827; --bg-color: #F3F4F6; --card-bg: #FFFFFF; --text-muted: #6B7280; --input-focus: #3B82F6; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); margin: 0; padding: 40px; color: #111827; }
+        
+        /* Layout en 3 colonnes pour le tableau de bord */
         .container {
-            background-color: var(--card-bg);
-            padding: 48px 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            width: 100%;
-            max-width: 420px;
-            box-sizing: border-box;
-            animation: fadeIn 0.4s ease-out;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media (max-width: 1024px) { .container { grid-template-columns: 1fr; } }
+
+        .card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            height: fit-content;
         }
 
-        h1 {
-            margin: 0 0 8px 0;
-            font-size: 24px;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        p.subtitle {
-            color: var(--text-muted);
-            text-align: center;
-            margin: 0 0 32px 0;
-            font-size: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: all 0.2s ease;
-            box-sizing: border-box;
-        }
-
-        input[type="text"]:focus {
-            outline: none;
-            border-color: var(--input-focus);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            margin-top: 8px;
-            font-family: inherit;
-        }
-
-        button:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .actions {
-            margin-top: 24px;
-            text-align: center;
-        }
-
-        .btn-secondary {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .btn-secondary:hover {
-            color: var(--primary);
-            text-decoration: underline;
-        }
+        h1 { font-size: 18px; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #D1D5DB; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+        input:focus, select:focus { outline: none; border-color: var(--input-focus); ring: 2px var(--input-focus); }
+        
+        button { width: 100%; padding: 12px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 14px; color: white; }
+        .btn-black { background: #111827; }
+        .btn-blue { background: #2563EB; }
+        .btn-green { background: #059669; }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Espace Direction</h1>
-        <p class="subtitle">Ajouter un nouveau client au réseau</p>
-        
-        <form action="/ajouter" method="post">
-            <div class="form-group">
-                <label for="nom">Nom de l'entreprise</label>
-                <input type="text" id="nom" name="nom" placeholder="Ex: Tech Solutions" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="secteur">Secteur d'activité</label>
-                <input type="text" id="secteur" name="secteur" placeholder="Ex: Intelligence Artificielle" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="ville">Ville du Siège Social</label>
-                <input type="text" id="ville" name="ville" placeholder="Ex: Strasbourg" required>
-            </div>
-            
-            <button type="submit">Enregistrer dans la base</button>
-        </form>
 
-        <div class="actions">
-            <a href="/rapport" class="btn-secondary">
-                📄 Télécharger le rapport CSV
-            </a>
+    <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="margin: 0;">Système de Gestion Coworking</h2>
+        <p style="color: var(--text-muted); font-size: 14px;">Interface d'administration - Francesca Tisnes</p>
+    </div>
+
+    <div class="container">
+        
+        <div class="card">
+            <h1>🏢 1. Entreprise</h1>
+            <form action="/ajouter_entreprise" method="post">
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" name="nom" placeholder="Ex: Google" required>
+                </div>
+                <div class="form-group">
+                    <label>Secteur</label>
+                    <input type="text" name="secteur" placeholder="Ex: Tech" required>
+                </div>
+                <div class="form-group">
+                    <label>Ville</label>
+                    <input type="text" name="ville" placeholder="Ex: Paris" required>
+                </div>
+                <button type="submit" class="btn-black">Créer Client</button>
+            </form>
         </div>
+
+        <div class="card">
+            <h1>👤 2. Membre</h1>
+            <form action="/ajouter_membre" method="post">
+                <div class="form-group">
+                    <label>Nom Complet</label>
+                    <input type="text" name="nom_complet" placeholder="Ex: Jean Dupont" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" name="email" placeholder="Ex: j.dupont@mail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Rattacher à l'entreprise</label>
+                    <select name="entreprise_id" required>
+                        <option value="">-- Choisir une société --</option>
+                        {% for ent in entreprises %}
+                            <option value="{{ ent.id }}">{{ ent.nom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn-blue">Inscrire Membre</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h1>📅 3. Réservation</h1>
+            <form action="/ajouter_reservation" method="post">
+                <div class="form-group">
+                    <label>Choisir le Membre</label>
+                    <select name="membre_id" required>
+                        <option value="">-- Qui réserve ? --</option>
+                        {% for membre in membres %}
+                            <option value="{{ membre.id }}">{{ membre.nom_complet }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Salle</label>
+                    <select name="salle_id" required>
+                        <option value="">-- Quel espace ? --</option>
+                        {% for salle in salles %}
+                            <option value="{{ salle.id }}">{{ salle.nom_salle }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date & Heures</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="date" name="date_resa" required>
+                        <input type="number" name="duree" value="2" min="1" max="12" style="width: 70px;">
+                    </div>
+                </div>
+                <button type="submit" class="btn-green">Réserver</button>
+            </form>
+        </div>
+
     </div>
 </body>
 </html>
