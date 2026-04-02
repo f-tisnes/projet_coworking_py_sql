@@ -1,28 +1,35 @@
-from flask import Flask, render_template, request, redirect
 import sqlite3
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
+DB_PATH = "coworking_base.db"
 
-# Route principale : affiche le formulaire
 @app.route('/')
 def home():
+    """Affiche le formulaire principal."""
     return render_template('index.html')
 
-# Route qui reçoit les données du formulaire
 @app.route('/ajouter', methods=['POST'])
 def ajouter():
-    nom = request.form['nom']
-    secteur = request.form['secteur']
-    ville = request.form['ville']
+    """Gère l'insertion SQL et redirige vers la page de succès."""
+    nom = request.form.get('nom')
+    secteur = request.form.get('secteur')
+    ville = request.form.get('ville')
 
-    # Connexion à ta base existante
-    conn = sqlite3.connect("coworking_base.db")
-    cur = conn.cursor()
-    cur.execute("INSERT INTO entreprises (nom, secteur, ville) VALUES (?, ?, ?)", (nom, secteur, ville))
-    conn.commit()
-    conn.close()
+    try:
+        with sqlite3.connect(DB_PATH) as conn:
+            cur = conn.cursor()
+            cur.execute(
+                "INSERT INTO entreprises (nom, secteur, ville) VALUES (?, ?, ?)", 
+                (nom, secteur, ville)
+            )
+            conn.commit()
+            
+        # On passe le nom de l'entreprise à notre nouveau template de succès
+        return render_template('success.html', nom_entreprise=nom)
 
-    return f"<h1>Succès !</h1><p>L'entreprise {nom} a bien été ajoutée. <a href='/'>Retour</a></p>"
+    except sqlite3.Error as e:
+        return f"<h1>❌ Erreur Système</h1><p>{e}</p><a href='/'>Retour</a>", 500
 
 if __name__ == "__main__":
     app.run(debug=True)
