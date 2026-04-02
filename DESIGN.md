@@ -1,4 +1,4 @@
-# Conception du Système de Gestion de Coworking
+# 📐 Conception du Système de Gestion de Coworking
 
 ## 1. Description des Entités (Tables)
 Le système repose sur 4 entités pour garantir une base de données normalisée (3NF) :
@@ -44,19 +44,16 @@ erDiagram
         DATE date_resa
         INTEGER duree_heures
     }
+```
 
 ---
 
-## 3. Choix de la conception 
-
-- Normalisation financière : Les prix (tarif_heure) sont stockés de manière statique dans la table salles pour éviter toute redondance et erreur de saisie lors des réservations.
-
-- Intégrité Référentielle : Utilisation stricte des clés étrangères (FOREIGN KEY). Dans l'application Web (Flask), cela se traduit par des listes déroulantes dynamiques : on ne peut inscrire un membre que dans une entreprise existante, et on ne peut réserver une salle que pour un membre existant.
-
-- Flexibilité et Évolutivité : La table salles est conçue comme un catalogue. Il suffit d'ajouter une ligne (ex: "Espace Podcast") pour que le nouveau produit soit instantanément disponible à la réservation dans l'interface Web, sans toucher au code SQL.
+## 3. Choix de Conception
+- **Normalisation financière** : Les prix (`tarif_heure`) sont stockés de manière statique dans la table `salles` pour éviter toute redondance et erreur de saisie lors des réservations.
+- **Intégrité Référentielle** : Utilisation stricte des clés étrangères (`FOREIGN KEY`). Dans l'application Web (Flask), cela se traduit par des listes déroulantes dynamiques : on ne peut inscrire un membre que dans une entreprise existante, et on ne peut réserver une salle que pour un membre existant.
+- **Flexibilité et Évolutivité** : La table `salles` est conçue comme un catalogue. Il suffit d'ajouter une ligne (ex: "Espace Podcast") pour que le nouveau produit soit instantanément disponible à la réservation dans l'interface Web, sans toucher au code SQL.
 
 ---
 
 ## 4. Limitations connues
-
-Le modèle actuel est optimisé pour la facturation journalière globale, mais il ne gère pas encore les conflits de créneaux horaires stricts. En théorie, le système actuel autorise l'enregistrement de deux réservations pour la même salle à la même date (Overbooking). Une V2 du projet nécessiterait l'ajout de colonnes heure_debut et heure_fin avec un déclencheur (TRIGGER) SQL pour bloquer les chevauchements.
+Le modèle actuel est optimisé pour la facturation journalière globale, mais il ne gère pas encore les **conflits de créneaux horaires stricts**. En théorie, le système actuel autorise l'enregistrement de deux réservations pour la même salle à la même date (Overbooking). Une V3 du projet nécessiterait l'ajout de colonnes `heure_debut` et `heure_fin` avec un déclencheur (`TRIGGER`) SQL pour bloquer les chevauchements.
