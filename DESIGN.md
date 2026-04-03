@@ -1,4 +1,4 @@
-# 📐 Conception du Système de Gestion de Coworking
+# Conception du Système de Gestion de Coworking
 
 ## 1. Description des Entités (Tables)
 Le système repose sur 4 entités pour garantir une base de données normalisée (3NF) :
